@@ -8,6 +8,8 @@ Class {
 		'subclassesName',
 		'loc',
 		'docloc',
+		'incomingClassnames',
+		'outgoingClassnames',
 		'incomingClasses',
 		'outgoingClasses',
 		'methods'
@@ -30,6 +32,24 @@ MClass >> docloc [
 MClass >> docloc: anObject [
 
 	docloc := anObject
+]
+
+{ #category : #accessing }
+MClass >> incomingClasses [
+
+	^ incomingClasses
+]
+
+{ #category : #accessing }
+MClass >> incomingClassnames [
+
+	^ incomingClassnames
+]
+
+{ #category : #accessing }
+MClass >> incomingClassnames: anObject [
+
+	incomingClassnames := anObject
 ]
 
 { #category : #initialization }
@@ -57,6 +77,12 @@ MClass >> loc: anObject [
 ]
 
 { #category : #accessing }
+MClass >> methods [
+
+	^ methods
+]
+
+{ #category : #accessing }
 MClass >> name [
 
 	^ name
@@ -71,6 +97,24 @@ MClass >> name: anObject [
 { #category : #private }
 MClass >> numberOfMethods [
 	^ methods size
+]
+
+{ #category : #accessing }
+MClass >> outgoingClasses [
+
+	^ outgoingClasses
+]
+
+{ #category : #accessing }
+MClass >> outgoingClassnames [
+
+	^ outgoingClassnames
+]
+
+{ #category : #accessing }
+MClass >> outgoingClassnames: anObject [
+
+	outgoingClassnames := anObject
 ]
 
 { #category : #accessing }
