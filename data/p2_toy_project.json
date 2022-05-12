@@ -1,0 +1,830 @@
+{
+	"projectInfos": {
+		"numberOfClasses": 16,
+		"numberOfInterfaces": 1,
+		"numberOfAnnotations": 0,
+		"numberOfRecords": 0,
+		"numberOfEnums": 0,
+		"totNumberOfEntities": 17,
+		"numberOfEntitiesWithSuperClass": 9,
+		"numberOfEntitesWithChildren": 3
+	},
+	"entities": [
+		{
+			"documentation": "",
+			"name": "snakes.Die",
+			"extends": "",
+			"Methods": [
+				{
+					"signature": "public Die()",
+					"documentation": ""
+				},
+				{
+					"signature": "public Die(int inputFaces)",
+					"documentation": ""
+				},
+				{
+					"signature": "public int getFaces()",
+					"documentation": ""
+				},
+				{
+					"signature": "public int roll()",
+					"documentation": ""
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": false,
+			"testClasses": [
+				"snakes.DieTest"
+			],
+			"subClasses": [],
+			"implementedBy": [],
+			"uses": [],
+			"usedBy": [
+				"snakes.Game",
+				"snakes.squares.SleepSquare"
+			],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "",
+			"name": "snakes.Game",
+			"extends": "",
+			"Methods": [
+				{
+					"signature": "private boolean invariant()",
+					"documentation": ""
+				},
+				{
+					"signature": "public Game(int size, Player[] initPlayers)",
+					"documentation": ""
+				},
+				{
+					"signature": "public boolean isValidPosition(int position)",
+					"documentation": ""
+				},
+				{
+					"signature": "public static void main(String args[])",
+					"documentation": ""
+				},
+				{
+					"signature": "Player[] players =",
+					"documentation": ""
+				},
+				{
+					"signature": "public void play()",
+					"documentation": ""
+				},
+				{
+					"signature": "public boolean notOver()",
+					"documentation": ""
+				},
+				{
+					"signature": "public boolean isOver()",
+					"documentation": ""
+				},
+				{
+					"signature": "public Player currentPlayer()",
+					"documentation": ""
+				},
+				{
+					"signature": "public void movePlayer(int roll)",
+					"documentation": ""
+				},
+				{
+					"signature": "private void rotatePlayerQueue()",
+					"documentation": ""
+				},
+				{
+					"signature": "private void wakeUpAllPlayers()",
+					"documentation": ""
+				},
+				{
+					"signature": "public List\u003cString\u003e getSleepingPlayers()",
+					"documentation": ""
+				},
+				{
+					"signature": "public void setSquare(int position, ISquare square)",
+					"documentation": ""
+				},
+				{
+					"signature": "public Player winner()",
+					"documentation": ""
+				},
+				{
+					"signature": "public List\u003cPlayer\u003e losers()",
+					"documentation": ""
+				},
+				{
+					"signature": "public ISquare firstSquare()",
+					"documentation": ""
+				},
+				{
+					"signature": "public ISquare getSquare(int position)",
+					"documentation": ""
+				},
+				{
+					"signature": "public String toString()",
+					"documentation": ""
+				},
+				{
+					"signature": "private void addSquares(int size)",
+					"documentation": ""
+				},
+				{
+					"signature": "private void addPlayers(Player[] initPlayers)",
+					"documentation": ""
+				},
+				{
+					"signature": "private void initSquare(int position, ISquare square)",
+					"documentation": ""
+				},
+				{
+					"signature": "public void setSquareToLadder(int position, int transport)",
+					"documentation": ""
+				},
+				{
+					"signature": "public void setSquareToSnake(int position, int transport)",
+					"documentation": ""
+				},
+				{
+					"signature": "public ISquare findSquare(int position, int moves)",
+					"documentation": ""
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": false,
+			"testClasses": [
+				"snakes.squares.SquareTest",
+				"snakes.SimpleGameTest"
+			],
+			"subClasses": [],
+			"implementedBy": [],
+			"uses": [
+				"snakes.Die"
+			],
+			"usedBy": [
+				"snakes.squares.AlarmSquare",
+				"snakes.squares.InstantLoseSquare",
+				"snakes.squares.SnakeSquare",
+				"snakes.Player",
+				"snakes.squares.LadderSquare",
+				"snakes.squares.FirstSquare",
+				"snakes.squares.StandardSquare",
+				"snakes.squares.SleepSquare"
+			],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "",
+			"name": "snakes.Player",
+			"extends": "",
+			"Methods": [
+				{
+					"signature": "private boolean invariant()",
+					"documentation": ""
+				},
+				{
+					"signature": "public Player(String name)",
+					"documentation": ""
+				},
+				{
+					"signature": "public void joinGame(Game game)",
+					"documentation": ""
+				},
+				{
+					"signature": "public int position()",
+					"documentation": ""
+				},
+				{
+					"signature": "public boolean moveForward(int moves)",
+					"documentation": ""
+				},
+				{
+					"signature": "public void skipTurn()",
+					"documentation": ""
+				},
+				{
+					"signature": "public boolean isSleeping()",
+					"documentation": ""
+				},
+				{
+					"signature": "public void goToSleep(int turns)",
+					"documentation": ""
+				},
+				{
+					"signature": "public void wakeUp()",
+					"documentation": ""
+				},
+				{
+					"signature": "public boolean isOnAlarmSquare()",
+					"documentation": ""
+				},
+				{
+					"signature": "public String toString()",
+					"documentation": ""
+				},
+				{
+					"signature": "public ISquare square()",
+					"documentation": ""
+				},
+				{
+					"signature": "public boolean wins()",
+					"documentation": ""
+				},
+				{
+					"signature": "public boolean isOnInstantLoseSquare()",
+					"documentation": ""
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": false,
+			"testClasses": [],
+			"subClasses": [],
+			"implementedBy": [],
+			"uses": [
+				"snakes.Game",
+				"snakes.squares.ISquare"
+			],
+			"usedBy": [
+				"snakes.squares.FirstSquare",
+				"snakes.squares.ISquare",
+				"snakes.squares.StandardSquare"
+			],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "/**\n * Defines a special square where all sleeping players (on any square) are woken up.\n *\n * It returns true of the square is an AlarmSquare and provides an ALARM label and the position\n * of the square\n *\n * @version 1.0\n * @author  Manuel Aschwanden\n * @author  Niklas Hirschi\n * @author  Lukas Frei\n */",
+			"name": "snakes.squares.AlarmSquare",
+			"extends": "snakes.squares.StandardSquare",
+			"Methods": [
+				{
+					"signature": "public AlarmSquare(Game game, int position)",
+					"documentation": "/**\n * Defines a special square where all sleeping players (on any square) are woken up.\n *\n * It returns true of the square is an AlarmSquare and provides an ALARM label and the position\n * of the square\n *\n * @version 1.0\n * @author  Manuel Aschwanden\n * @author  Niklas Hirschi\n * @author  Lukas Frei\n */"
+				},
+				{
+					"signature": "public boolean isAlarmSquare()",
+					"documentation": ""
+				},
+				{
+					"signature": "@Override\n    public String squareLabel()",
+					"documentation": "/**\n     *\n     * @return Label ALARM plus position of square\n     */"
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": false,
+			"testClasses": [
+				"snakes.SimpleGameTest",
+				"snakes.squares.SleepAlarmTest"
+			],
+			"subClasses": [],
+			"implementedBy": [],
+			"uses": [
+				"snakes.Game"
+			],
+			"usedBy": [],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "/**\n * Defines the first square in the game by extending the StandardSquare.\n * The first square ist the starting point for all players and the place\n * they get sent to if the land on an already occupied field. It can hold\n * multiple players and  they can't get sent home\n *\n * @version 1.0\n * @author  Manuel Aschwanden\n * @author  Niklas Hirschi\n * @author  Lukas Frei\n */",
+			"name": "snakes.squares.FirstSquare",
+			"extends": "snakes.squares.StandardSquare",
+			"Methods": [
+				{
+					"signature": "public FirstSquare(Game game, int position)",
+					"documentation": "/**\n     *\n     * @param game      Current game\n     * @param position  Position of the first square\n     */"
+				},
+				{
+					"signature": "public ISquare landHereOrGoHome()",
+					"documentation": ""
+				},
+				{
+					"signature": "@Override\n    public boolean isOccupied()",
+					"documentation": ""
+				},
+				{
+					"signature": "@Override\n    public void enter(Player player)",
+					"documentation": ""
+				},
+				{
+					"signature": "@Override\n    public void leave(Player player)",
+					"documentation": ""
+				},
+				{
+					"signature": "@Override\n    public boolean isFirstSquare()",
+					"documentation": ""
+				},
+				{
+					"signature": "@Override\n    protected String player()",
+					"documentation": ""
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": false,
+			"testClasses": [],
+			"subClasses": [],
+			"implementedBy": [],
+			"uses": [
+				"snakes.Game",
+				"snakes.Player",
+				"snakes.squares.ISquare"
+			],
+			"usedBy": [],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "/**\n * The interface for all different types of squares in the snakes \u0026 ladders game.\n *\n * @author  Manuel Aschwanden\n * @author  Niklas Hirschi\n * @author  Lukas Frei\n * @version 1.0\n * @see     StandardSquare implements this interface\n */",
+			"name": "snakes.squares.ISquare",
+			"extends": "",
+			"Methods": [],
+			"interfaces": [],
+			"type": "interface",
+			"isTest": false,
+			"testClasses": [],
+			"subClasses": [],
+			"implementedBy": [
+				"snakes.squares.StandardSquare"
+			],
+			"uses": [
+				"snakes.Player"
+			],
+			"usedBy": [
+				"snakes.Player",
+				"snakes.squares.FirstSquare",
+				"snakes.squares.LadderSquare",
+				"snakes.squares.StandardSquare"
+			],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "/**\n * A field in the game where the player that hits it instantly loses.\n * The settings of the currently initialized game (\"game\" and \"position\")\n * are passed and a boolean true for isInstantLoseSquare plus a Label LOSE\n * and the position of the square are returned.\n *\n * @version 1.0\n * @author  Manuel Aschwanden\n * @author  Niklas Hirschi\n * @author  Lukas Frei\n */",
+			"name": "snakes.squares.InstantLoseSquare",
+			"extends": "snakes.squares.StandardSquare",
+			"Methods": [
+				{
+					"signature": "public InstantLoseSquare(Game game, int position)",
+					"documentation": "/**\n     *\n     * @param game      current game\n     * @param position  position of instant lose square\n     */"
+				},
+				{
+					"signature": "@Override\n    public boolean isInstantLoseSquare()",
+					"documentation": ""
+				},
+				{
+					"signature": "@Override\n    public String squareLabel()",
+					"documentation": "/**\n     *\n     * @return Returns the label LOSE and the position of the instant lose field\n     */"
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": false,
+			"testClasses": [
+				"snakes.SimpleGameTest",
+				"snakes.squares.InstantLoseSquareTest"
+			],
+			"subClasses": [],
+			"implementedBy": [],
+			"uses": [
+				"snakes.Game"
+			],
+			"usedBy": [],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "/**\n * Defines a special square where the respective player can advance.\n *\n * It checks if  a transport to a more advanced destination field is valid and returns\n * the new position.\n *\n * @see SnakeSquare extends this method\n * @version 1.0\n * @author  Manuel Aschwanden\n * @author  Niklas Hirschi\n * @author  Lukas Frei\n */",
+			"name": "snakes.squares.LadderSquare",
+			"extends": "snakes.squares.StandardSquare",
+			"Methods": [
+				{
+					"signature": "private boolean invariant()",
+					"documentation": "/**\n     *\n     * @return Boolean if valid for transport\n     */"
+				},
+				{
+					"signature": "private boolean isValidTransport(int transport)",
+					"documentation": "/**\n     *\n     * @param transport New destination square\n     * @return          New destination square\n     */"
+				},
+				{
+					"signature": "public LadderSquare(int transport, Game game, int position)",
+					"documentation": "/**\n     *\n     * @param transport\n     * @param game\n     * @param position\n     */"
+				},
+				{
+					"signature": "@Override\n    protected String squareLabel()",
+					"documentation": "/**\n     *\n     * @return Label Advance plus number of positions\n     */"
+				},
+				{
+					"signature": "@Override\n    public ISquare landHereOrGoHome()",
+					"documentation": "/**\n     *\n     * @return\n     */"
+				},
+				{
+					"signature": "protected ISquare destination()",
+					"documentation": "/**\n     *\n     * @return Destination\n     */"
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": false,
+			"testClasses": [],
+			"subClasses": [
+				"snakes.squares.SnakeSquare"
+			],
+			"implementedBy": [],
+			"uses": [
+				"snakes.Game",
+				"snakes.squares.ISquare"
+			],
+			"usedBy": [],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "/**\n * Defines the last square in the game by extending the StandardSquare.\n *\n * @version 1.0\n * @author  Manuel Aschwanden\n * @author  Niklas Hirschi\n * @author  Lukas Frei\n */",
+			"name": "snakes.squares.LastSquare",
+			"extends": "snakes.squares.StandardSquare",
+			"Methods": [
+				{
+					"signature": "public LastSquare(Game game, int position)",
+					"documentation": "/**\n     *\n     * @param game      current game defined in Game.java\n     * @param position  position of last square defined in Game.java through number of squares (final ist last square)\n     */"
+				},
+				{
+					"signature": "@Override\n    public boolean isLastSquare()",
+					"documentation": "/**\n     *\n     * @return Is the last square of the game\n     */"
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": false,
+			"testClasses": [],
+			"subClasses": [],
+			"implementedBy": [],
+			"uses": [],
+			"usedBy": [],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "/**\n * A special field in the game where the player that hits it has to pause for the amount displayed on the die.\n *\n * @version 1.0\n * @author  Manuel Aschwanden\n * @author  Niklas Hirschi\n * @author  Lukas Frei\n */",
+			"name": "snakes.squares.SleepSquare",
+			"extends": "snakes.squares.StandardSquare",
+			"Methods": [
+				{
+					"signature": "public SleepSquare(Game game, int position)",
+					"documentation": "/**\n     *\n     * @param game      Current game\n     * @param position  Position of the Sleep Square\n     */"
+				},
+				{
+					"signature": "@Override\n    public void enter(Player player)",
+					"documentation": "/**\n     *\n     * @param player    The Player\n     */"
+				},
+				{
+					"signature": "@Override\n    public String squareLabel()",
+					"documentation": "/**\n     *\n     * @return Label \"Sleep\" and the respective position in the game\n     */"
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": false,
+			"testClasses": [
+				"snakes.SimpleGameTest",
+				"snakes.squares.SleepAlarmTest"
+			],
+			"subClasses": [],
+			"implementedBy": [],
+			"uses": [
+				"snakes.Die",
+				"snakes.Game"
+			],
+			"usedBy": [],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "/**\n * Defines a special square where the respective player has to move back a certain amount of squares\n *\n * It checks if  a transport to a less advanced destination field is valid and returns\n * the new position.\n *\n * @version 1.0\n * @author  Manuel Aschwanden\n * @author  Niklas Hirschi\n * @author  Lukas Frei\n */",
+			"name": "snakes.squares.SnakeSquare",
+			"extends": "snakes.squares.LadderSquare",
+			"Methods": [
+				{
+					"signature": "public SnakeSquare(int transport, Game game, int position)",
+					"documentation": "/**\n     *\n     * @param transport     Number of steps to go back\n     * @param game          Current game\n     * @param position      Position of the SnakeSquare\n     */"
+				},
+				{
+					"signature": "@Override\n    protected String squareLabel()",
+					"documentation": "/**\n     *\n     * @return Label \"arrow-back\" plus the number o steps to go back\n     */"
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": false,
+			"testClasses": [],
+			"subClasses": [],
+			"implementedBy": [],
+			"uses": [
+				"snakes.Game"
+			],
+			"usedBy": [],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "/**\n * Defines the standard square in the game by implementing the interface ISquare.\n * A standard square does not have any special powers - players can simply land on it.\n * If the square is already occupied, the user gets sent home.\n *\n * @see AlarmSquare extends this class\n * @see SleepSquare extends this class\n * @see LastSquare extends this class\n * @see LadderSquare extends this class\n * @see InstantLoseSquare extends this class\n * @see FirstSquare extends this class\n * @version 1.0\n * @author  Manuel Aschwanden\n * @author  Niklas Hirschi\n * @author  Lukas Frei\n */",
+			"name": "snakes.squares.StandardSquare",
+			"extends": "",
+			"Methods": [
+				{
+					"signature": "private boolean invariant()",
+					"documentation": "/**\n * Defines the standard square in the game by implementing the interface ISquare.\n * A standard square does not have any special powers - players can simply land on it.\n * If the square is already occupied, the user gets sent home.\n *\n * @see AlarmSquare extends this class\n * @see SleepSquare extends this class\n * @see LastSquare extends this class\n * @see LadderSquare extends this class\n * @see InstantLoseSquare extends this class\n * @see FirstSquare extends this class\n * @version 1.0\n * @author  Manuel Aschwanden\n * @author  Niklas Hirschi\n * @author  Lukas Frei\n */"
+				},
+				{
+					"signature": "public StandardSquare(Game game, int position)",
+					"documentation": "/**\n     *\n     * @param game      The currently initialized game\n     * @param position  The position of the square\n     */"
+				},
+				{
+					"signature": "public int position()",
+					"documentation": "/**\n     *\n     * @return  Position of the standard square\n     */"
+				},
+				{
+					"signature": "public ISquare moveAndLand(int moves)",
+					"documentation": "/**\n     *\n     * @param moves The number of steps a player can move forward\n     * @return      Information if the field can be visited or if user has to go back to square 1\n     */"
+				},
+				{
+					"signature": "protected ISquare nextSquare()",
+					"documentation": ""
+				},
+				{
+					"signature": "protected ISquare previousSquare()",
+					"documentation": ""
+				},
+				{
+					"signature": "public ISquare landHereOrGoHome()",
+					"documentation": ""
+				},
+				{
+					"signature": "public String toString()",
+					"documentation": ""
+				},
+				{
+					"signature": "protected String squareLabel()",
+					"documentation": ""
+				},
+				{
+					"signature": "public boolean isOccupied()",
+					"documentation": ""
+				},
+				{
+					"signature": "public void enter(Player player)",
+					"documentation": "/**\n     *\n     * @param player    The Player\n     */"
+				},
+				{
+					"signature": "public void leave(Player player)",
+					"documentation": "/**\n     *\n     * @param player    The Player\n     */"
+				},
+				{
+					"signature": "public boolean isFirstSquare()",
+					"documentation": ""
+				},
+				{
+					"signature": "public boolean isAlarmSquare()",
+					"documentation": ""
+				},
+				{
+					"signature": "public boolean isInstantLoseSquare()",
+					"documentation": ""
+				},
+				{
+					"signature": "public void goToSleep()",
+					"documentation": ""
+				},
+				{
+					"signature": "public boolean isLastSquare()",
+					"documentation": ""
+				},
+				{
+					"signature": "protected String player()",
+					"documentation": ""
+				}
+			],
+			"interfaces": [
+				"snakes.squares.ISquare"
+			],
+			"type": "class",
+			"isTest": false,
+			"testClasses": [],
+			"subClasses": [
+				"snakes.squares.AlarmSquare",
+				"snakes.squares.FirstSquare",
+				"snakes.squares.InstantLoseSquare",
+				"snakes.squares.LadderSquare",
+				"snakes.squares.LastSquare",
+				"snakes.squares.SleepSquare"
+			],
+			"implementedBy": [],
+			"uses": [
+				"snakes.Game",
+				"snakes.Player",
+				"snakes.squares.ISquare"
+			],
+			"usedBy": [],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "",
+			"name": "snakes.DieTest",
+			"extends": "",
+			"Methods": [
+				{
+					"signature": "@Test\n    public void testInRange()",
+					"documentation": ""
+				},
+				{
+					"signature": "@Test\n    public void testMinReached()",
+					"documentation": ""
+				},
+				{
+					"signature": "@Test\n    public void testMaxReached()",
+					"documentation": ""
+				},
+				{
+					"signature": "@Test\n    public void testNSidedDieMaxReached()",
+					"documentation": ""
+				},
+				{
+					"signature": "private boolean reached(int value)",
+					"documentation": "/**\n     * Roll at most MAX times and return true if the given value has occurred.\n     *\n     * @param value value that needs to be rolled\n     * @return true, if the value has been rolled, false otherwise\n     */"
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": true,
+			"testClasses": [],
+			"subClasses": [],
+			"implementedBy": [],
+			"uses": [
+				"snakes.Die"
+			],
+			"usedBy": [],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "",
+			"name": "snakes.SimpleGameTest",
+			"extends": "",
+			"Methods": [
+				{
+					"signature": "public Game newGame()",
+					"documentation": ""
+				},
+				{
+					"signature": "Player[] args =",
+					"documentation": ""
+				},
+				{
+					"signature": "public Game setAnotherGameState()",
+					"documentation": ""
+				},
+				{
+					"signature": "Player[] args =",
+					"documentation": ""
+				},
+				{
+					"signature": "@Test\n    public void initialStrings()",
+					"documentation": ""
+				},
+				{
+					"signature": "@Test\n    public void playGame()",
+					"documentation": ""
+				},
+				{
+					"signature": "@Test\n    public void playerOutOfBoard()",
+					"documentation": ""
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": true,
+			"testClasses": [],
+			"subClasses": [],
+			"implementedBy": [],
+			"uses": [
+				"snakes.squares.AlarmSquare",
+				"snakes.Game",
+				"snakes.squares.InstantLoseSquare",
+				"snakes.squares.SleepSquare"
+			],
+			"usedBy": [],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "",
+			"name": "snakes.squares.InstantLoseSquareTest",
+			"extends": "snakes.squares.SquareTest",
+			"Methods": [
+				{
+					"signature": "public void newGame(int numberOfPlayers)",
+					"documentation": ""
+				},
+				{
+					"signature": "@Test\n    public void moveToInstantLoseSquareTwoPlayer()",
+					"documentation": ""
+				},
+				{
+					"signature": "@Test\n    public void moveToInstantLoseSquareThreePlayer()",
+					"documentation": ""
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": true,
+			"testClasses": [],
+			"subClasses": [],
+			"implementedBy": [],
+			"uses": [
+				"snakes.squares.InstantLoseSquare"
+			],
+			"usedBy": [],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "",
+			"name": "snakes.squares.SleepAlarmTest",
+			"extends": "snakes.squares.SquareTest",
+			"Methods": [
+				{
+					"signature": "@Override\n    public void newGame(int numberOfPlayers)",
+					"documentation": ""
+				},
+				{
+					"signature": "@Test\n    public void gameInitializationCheck()",
+					"documentation": ""
+				},
+				{
+					"signature": "@Test\n    public void moveToSleepSquare()",
+					"documentation": ""
+				},
+				{
+					"signature": "@Test\n    public void moveToAlarmSquare()",
+					"documentation": ""
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": true,
+			"testClasses": [],
+			"subClasses": [],
+			"implementedBy": [],
+			"uses": [
+				"snakes.squares.AlarmSquare",
+				"snakes.squares.SleepSquare"
+			],
+			"usedBy": [],
+			"isPrivate": false,
+			"InnerClasses": []
+		},
+		{
+			"documentation": "",
+			"name": "snakes.squares.SquareTest",
+			"extends": "",
+			"Methods": [
+				{
+					"signature": "void initialize2Players()",
+					"documentation": ""
+				},
+				{
+					"signature": "void initialize3Players()",
+					"documentation": ""
+				},
+				{
+					"signature": "void initializeGame(int size, int playerNumber)",
+					"documentation": ""
+				}
+			],
+			"interfaces": [],
+			"type": "class",
+			"isTest": true,
+			"testClasses": [],
+			"subClasses": [
+				"snakes.squares.InstantLoseSquareTest",
+				"snakes.squares.SleepAlarmTest"
+			],
+			"implementedBy": [],
+			"uses": [
+				"snakes.Game"
+			],
+			"usedBy": [],
+			"isPrivate": false,
+			"InnerClasses": []
+		}
+	]
+}
