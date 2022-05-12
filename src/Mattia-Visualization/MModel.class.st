@@ -32,15 +32,21 @@ MModel >> buildRelation [
 
 { #category : #'as yet unclassified' }
 MModel >> createClassFromJSON: json [
-	| cls |
+	| cls m |
 	cls := MClass new
 					name: (json at: #name);
 					superclassName: (json at: #extends).
 	
-	(json at: #Methods) do: [ :m | cls addMethod: MMethod new ].
+	(json at: #Methods) do: [ :mJson | 
+		m := MMethod new.
+		m signature: (mJson at: #signature).
+		m documentation: (mJson at: #documentation).
+		cls addMethod: m ].
 	
 	cls incomingClassnames: (json at: #uses).
 	cls outgoingClassnames: (json at: #usedBy).
+	
+	cls documentation: (json at: #documentation).
 	
 	^ cls
 
@@ -95,10 +101,96 @@ MModel >> numberOfClasses [
 { #category : #'as yet unclassified' }
 MModel >> visualization [
 
+	| legend c es visualEntities lb layoutBuilder |
+	c := RSCanvas new.
+	es := entities reverseSortedAs: #numberOfMethods.
+	visualEntities := es collect: #asShape as: RSGroup.
+	c addAll: visualEntities.
+	
+	lb := RSLineBuilder orthoVertical.
+	lb canvas: c.
+	lb withVerticalAttachPoint.
+	lb shapes: visualEntities.
+	lb connectFrom: #superclass.
+	
+	layoutBuilder := RSLayoutBuilder new.
+	layoutBuilder
+		ifConnected: (RSClusteringLayout new 
+					    clustersLayout: RSFlowLayout new;
+					    forEachLayout: RSTreeLayout new) 
+		ifNotConnected: RSFlowLayout new.
+	layoutBuilder on: visualEntities.
+	
+	visualEntities @ RSPopup.
+	c @ RSCanvasController.
+	
+	
+	legend := RSLegend new.
+	legend container: c.
+	legend text: 'Node = class'.
+	legend text: 'Edge = Inheritance (superclass above subclasses)'.
+	legend text: 'Each class has three parts (Fan-in cls, number of methods, Fan-out cls)'.
+	legend text: 'No comment (class and methods)' withBoxColor: Color red.
+	legend text: 'Class or at least one method have comment' withBoxColor: Color orange.
+	legend text: 'Class has comment and at least one method has comment' withBoxColor: Color green.
+	legend onDemand: 'Legend'.
+	legend legendDo: [ :s | 
+		s
+			draggable;
+			border:(RSBorder new
+				color: Color gray darker;
+				dashArray: #(4));
+			scaleBy: 0.75;
+			padding: 15 ].
+	legend build.
+	
+	^ c
+	
+	
+"	m := RSMondrian new.
+	m shape box size: #numberOfMethods.
+
+	m shape box
+		labeled: [ :e | e ratioOfDocumentedMethodsAsString ].
+	m nodes: (entities reverseSortedAs: #numberOfMethods).
+	m normalizeColor: #numberOfMethods.
+
+	m orthoVerticalLine connectFrom: #superclass.
+	m layout ifConnected: (RSClusteringLayout new 
+					    clustersLayout: RSFlowLayout new;
+					    forEachLayout: RSTreeLayout new) ifNotConnected: RSFlowLayout new.
+
+	m build.
+	
+	legend := RSLegend new.
+	legend container: m canvas.
+	legend text: 'Node = class'.
+	legend text: 'Edge = Inheritance (superclass above subclasses)'.
+	legend text: 'Size = number of methods'.
+	legend text: 'Number of methods' withFadingRamp: { 0->'green'. 1->'red'}.
+	legend onDemand: 'Legend'.
+	legend legendDo: [ :s | 
+		s
+			draggable;
+			border:(RSBorder new
+				color: Color gray darker;
+				dashArray: #(4));
+			scaleBy: 0.75;
+			padding: 15 ].
+		
+	legend build.
+	^ m canvas"
+]
+
+{ #category : #'as yet unclassified' }
+MModel >> visualizationOLD [
+
 	| m legend |
 	m := RSMondrian new.
 	m shape box size: #numberOfMethods.
 
+	m shape box
+		labeled: [ :e | e ratioOfDocumentedMethodsAsString ].
 	m nodes: (entities reverseSortedAs: #numberOfMethods).
 	m normalizeColor: #numberOfMethods.
 
