@@ -37,6 +37,12 @@ MMethod >> hasDocumentation [
 	^ documentation notEmpty
 ]
 
+{ #category : #initialization }
+MMethod >> initialize [
+	super initialize.
+	sourceCode := 'MISSING'
+]
+
 { #category : #'as yet unclassified' }
 MMethod >> inspectorSourceCode [
 	<inspectorPresentationOrder: 90 title: 'Source code'>

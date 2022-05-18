@@ -41,7 +41,8 @@ MModel >> createClassFromJSON: json [
 		m := MMethod new.
 		m signature: (mJson at: #signature).
 		m documentation: (mJson at: #documentation).
-		m sourceCode: (mJson at: #code).
+		(mJson includesKey: #code) ifTrue: 
+			[m sourceCode: (mJson at: #code)].
 		cls addMethod: m ].
 	
 	cls incomingClassnames: (json at: #uses).
