@@ -4,22 +4,27 @@ Class {
 	#category : #'Mattia-Visualization'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #examples }
 MMExample >> guice [
 	<script: 'self new guice inspect'>
 	
 	| m |
 	m := MModel new.
-	m importFromFilename: '/Users/alexandrebergel/Dropbox/GitRepos/VisualizingClassHierarchies/data/guice-broken.json'.
+	m importFromFilename: self path, 'guice.json'.
 	^ m
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #examples }
 MMExample >> p2ToyProject [
 	<script: 'self new p2ToyProject inspect'>
 	
 	| m |
 	m := MModel new.
-	m importFromFilename: '/Users/alexandrebergel/Dropbox/GitRepos/VisualizingClassHierarchies/data/p2_toy_project.json'.
+	m importFromFilename: self path, 'p2_toy_project.json'.
 	^ m
+]
+
+{ #category : #examples }
+MMExample >> path [
+	^ '/Users/alexandrebergel/Dropbox/GitRepos/VisualizingClassHierarchies/data/'
 ]

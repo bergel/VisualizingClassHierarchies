@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'name',
 		'documentation',
-		'signature'
+		'signature',
+		'sourceCode'
 	],
 	#category : #'Mattia-Visualization'
 }
@@ -36,6 +37,14 @@ MMethod >> hasDocumentation [
 	^ documentation notEmpty
 ]
 
+{ #category : #'as yet unclassified' }
+MMethod >> inspectorSourceCode [
+	<inspectorPresentationOrder: 90 title: 'Source code'>
+	^ SpTextPresenter new
+		text: self sourceCode;
+		yourself.
+]
+
 { #category : #accessing }
 MMethod >> name [
 
@@ -58,4 +67,16 @@ MMethod >> signature [
 MMethod >> signature: anObject [
 
 	signature := anObject
+]
+
+{ #category : #accessing }
+MMethod >> sourceCode [
+
+	^ sourceCode
+]
+
+{ #category : #accessing }
+MMethod >> sourceCode: aString [
+
+	sourceCode := aString
 ]

@@ -23,16 +23,16 @@ MClass >> addMethod: aMethod [
 	methods add: aMethod 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visualization }
 MClass >> asShape [
 	"Return a RSComponent"
 
-	| c defaultHeight color |
+	| c defaultHeight color compositeShape |
 	defaultHeight := self documentedLoc + 5.
 	c := OrderedCollection new.
 	c add: (RSBox new
 					height: defaultHeight;
-					width: incomingClasses size * 3
+					width: incomingClasses size * 3 + 5
 				).
 				
 	color := self hasComment 
@@ -52,7 +52,8 @@ MClass >> asShape [
 					width: outgoingClasses size * 3
 				).
 	RSHorizontalLineLayout new gapSize: -1; on: c.
-	^ c asArray asShapeFor: self
+	compositeShape := c asArray asShapeFor: self.
+	^ compositeShape
 ]
 
 { #category : #accessing }
@@ -79,12 +80,12 @@ MClass >> documentation: anObject [
 	documentation := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visualization }
 MClass >> documentedLoc [
 	^ documentation lines size + ((self methods collect: #documentedLoc), { 0 }) sum
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visualization }
 MClass >> hasComment [
 	^ documentation notEmpty or: [ self methods anySatisfy: #hasComment ]
 ]
@@ -117,6 +118,34 @@ MClass >> initialize [
 	incomingClasses := OrderedCollection new.
 	outgoingClasses := OrderedCollection new.
 	methods := OrderedCollection new
+]
+
+{ #category : #inspecting }
+MClass >> inspectorCanvasContext: aContext [
+
+	aContext withoutEvaluator
+]
+
+{ #category : #inspecting }
+MClass >> inspectorMethods [
+	<inspectorPresentationOrder: 90 title: 'Methods'>
+	^ SpListPresenter new
+		items: self methods;
+		display: [ :m | m signature ];
+		yourself.
+]
+
+{ #category : #inspecting }
+MClass >> inspectorText [
+	<inspectorPresentationOrder: 90 title: 'My description'>
+	^ SpTextPresenter new
+		text: 'OrderedCollection of size = ', self numberOfMethods asString;
+		yourself.
+]
+
+{ #category : #testing }
+MClass >> isRoot [
+	^ superclass isNil
 ]
 
 { #category : #accessing }
@@ -179,7 +208,7 @@ MClass >> printOn: str [
 	str nextPut: $>.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visualization }
 MClass >> ratioOfDocumentedMethodsAsString [
 	| nbOfDocumentedMethods |
 	nbOfDocumentedMethods := (self methods select: [ :m | m documentation notEmpty ]) size.
@@ -207,4 +236,34 @@ MClass >> superclassName [
 MClass >> superclassName: anObject [
 
 	superclassName := anObject
+]
+
+{ #category : #visualization }
+MClass >> visualizeFanInFanOut [
+
+	| cls c fanInShapes fanIn fanOutShapes fanOut |
+	cls := self.
+	c := RSCanvas new.
+	"FAN-IN:"
+	fanInShapes := self incomingClasses collect: #asShape as: RSGroup.
+	RSVerticalLineLayout on: fanInShapes.
+	fanIn := fanInShapes asShape.
+	c add: fanIn.
+
+	"Class"
+	cls := self asShape.
+	c add: cls.
+
+	"FAN-OUT:"
+	fanOutShapes := self incomingClasses collect: #asShape as: RSGroup.
+	RSVerticalLineLayout on: fanOutShapes.
+	fanOut := fanOutShapes asShape.
+	c add: fanOut.
+
+	"EDGES"
+	fanInShapes do: [ :fis | c add: (RSLine new from: fis; to: cls) ].
+	fanOutShapes do: [ :fos | c add: (RSLine new from: cls; to: fos) ].
+
+	RSHorizontalLineLayout new gapSize: 40; alignMiddle; on: c shapes.
+	^ c @ RSCanvasController
 ]
