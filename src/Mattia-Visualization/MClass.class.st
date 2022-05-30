@@ -13,7 +13,8 @@ Class {
 		'incomingClasses',
 		'outgoingClasses',
 		'methods',
-		'documentation'
+		'documentation',
+		'metrics'
 	],
 	#category : #'Mattia-Visualization'
 }
@@ -117,7 +118,8 @@ MClass >> initialize [
 	docloc := 0.
 	incomingClasses := OrderedCollection new.
 	outgoingClasses := OrderedCollection new.
-	methods := OrderedCollection new
+	methods := OrderedCollection new.
+	metrics := Dictionary new
 ]
 
 { #category : #inspecting }
@@ -164,6 +166,12 @@ MClass >> loc: anObject [
 MClass >> methods [
 
 	^ methods
+]
+
+{ #category : #accessing }
+MClass >> metrics [
+	"Return a dictionary containing metric values associated to the class"
+	^ metrics
 ]
 
 { #category : #accessing }

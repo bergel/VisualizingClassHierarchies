@@ -49,7 +49,10 @@ MModel >> createClassFromJSON: json [
 	cls outgoingClassnames: (json at: #usedBy).
 	
 	cls documentation: (json at: #documentation).
-	
+	cls metrics at: #anyj put: (json at: #anyj).
+	cls metrics at: #dir put: (json at: #dir).
+	cls metrics at: #anyc put: (json at: #anyc).
+	cls metrics at: #wjpd put: (json at: #wjpd).
 	^ cls
 
 ]
@@ -87,7 +90,15 @@ MModel >> initialize [
 	entities := OrderedCollection new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #inspector }
+MModel >> inspectorMetrics [
+	<inspectorPresentationOrder: 90 title: 'Metrics'>
+	^ SpRoassal3InspectorPresenter new
+        canvas: self visualizationMetrics;
+        yourself
+]
+
+{ #category : #inspector }
 MModel >> inspectorVisualization [
 	<inspectorPresentationOrder: 90 title: 'Visualization'>
 	^ SpRoassal3InspectorPresenter new
@@ -100,7 +111,7 @@ MModel >> numberOfClasses [
 	^ entities size
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visualization }
 MModel >> visualization [
 
 	| legend c es visualEntities lb layoutBuilder |
@@ -182,4 +193,71 @@ MModel >> visualization [
 		
 	legend build.
 	^ m canvas"
+]
+
+{ #category : #visualization }
+MModel >> visualizationMetrics [
+
+	| c es visualEntities lb layoutBuilder |
+	c := RSCanvas new.
+	es := entities reverseSortedAs: #numberOfMethods.
+	visualEntities := RSBox models: es.
+	c addAll: visualEntities.
+		
+	RSNormalizer width
+		shapes: visualEntities;
+		normalize: [ :cls | cls metrics at: #anyj ].
+	RSNormalizer height
+		shapes: visualEntities;
+		normalize: [ :cls | cls metrics at: #dir ].		
+	RSNormalizer color
+		shapes: visualEntities;
+		normalize: [ :cls | cls metrics at: #anyc ].		
+"
+	RSNormalizer color
+		shapes: visualEntities;
+		normalize: [ :cls | cls metrics at: #wjpd ].	
+"	
+	
+	lb := RSLineBuilder orthoVertical.
+	lb canvas: c.
+	lb withVerticalAttachPoint.
+	lb shapes: visualEntities.
+	lb connectFrom: #superclass.
+	
+
+	layoutBuilder := RSLayoutBuilder new.
+	layoutBuilder
+		ifConnected: (RSClusteringLayout new 
+					    clustersLayout: RSFlowLayout new;
+					    forEachLayout: RSTreeLayout new) 
+		ifNotConnected: RSFlowLayout new.
+	layoutBuilder on: visualEntities.
+	
+	visualEntities @ RSPopup new makeLocateAboveMouseCursor.
+	c @ RSCanvasController.
+	
+	
+"	legend := RSLegend new.
+	legend container: c.
+	legend text: 'Node = class'.
+	legend text: 'Edge = Inheritance (superclass above subclasses)'.
+	legend text: 'Each class has three parts (Fan-in cls, number of methods, Fan-out cls)'.
+	legend text: 'No comment (class and methods)' withBoxColor: Color red.
+	legend text: 'Class or at least one method have comment' withBoxColor: Color orange.
+	legend text: 'Class has comment and at least one method has comment' withBoxColor: Color green.
+	legend onDemand: 'Legend'.
+	legend legendDo: [ :s | 
+		s
+			draggable;
+			border:(RSBorder new
+				color: Color gray darker;
+				dashArray: #(4));
+			scaleBy: 0.75;
+			padding: 15 ].
+	legend build."
+	
+	^ c
+	
+	
 ]

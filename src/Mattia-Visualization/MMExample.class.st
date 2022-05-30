@@ -5,12 +5,42 @@ Class {
 }
 
 { #category : #examples }
+MMExample >> framework [
+	<script: 'self new framework inspect'>
+	
+	| m |
+	m := MModel new.
+	m importFromFilename: self path, 'framework.json'.
+	^ m
+]
+
+{ #category : #examples }
+MMExample >> guava [
+	<script: 'self new guava inspect'>
+	
+	| m |
+	m := MModel new.
+	m importFromFilename: self path, 'guava.json'.
+	^ m
+]
+
+{ #category : #examples }
 MMExample >> guice [
 	<script: 'self new guice inspect'>
 	
 	| m |
 	m := MModel new.
 	m importFromFilename: self path, 'guice.json'.
+	^ m
+]
+
+{ #category : #examples }
+MMExample >> hadoop [
+	<script: 'self new hadoop inspect'>
+	
+	| m |
+	m := MModel new.
+	m importFromFilename: self path, 'hadoop.json'.
 	^ m
 ]
 
