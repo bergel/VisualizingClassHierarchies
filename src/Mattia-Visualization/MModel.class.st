@@ -198,7 +198,7 @@ MModel >> visualization [
 { #category : #visualization }
 MModel >> visualizationMetrics [
 
-	| c es visualEntities lb layoutBuilder |
+	| c es visualEntities lb layoutBuilder legend |
 	c := RSCanvas new.
 	es := entities reverseSortedAs: #numberOfMethods.
 	visualEntities := RSBox models: es.
@@ -212,6 +212,7 @@ MModel >> visualizationMetrics [
 		normalize: [ :cls | cls metrics at: #dir ].		
 	RSNormalizer color
 		shapes: visualEntities;
+		from: Color red; to: Color green;
 		normalize: [ :cls | cls metrics at: #anyc ].		
 "
 	RSNormalizer color
@@ -238,14 +239,11 @@ MModel >> visualizationMetrics [
 	c @ RSCanvasController.
 	
 	
-"	legend := RSLegend new.
+	legend := RSLegend new.
 	legend container: c.
 	legend text: 'Node = class'.
 	legend text: 'Edge = Inheritance (superclass above subclasses)'.
-	legend text: 'Each class has three parts (Fan-in cls, number of methods, Fan-out cls)'.
-	legend text: 'No comment (class and methods)' withBoxColor: Color red.
-	legend text: 'Class or at least one method have comment' withBoxColor: Color orange.
-	legend text: 'Class has comment and at least one method has comment' withBoxColor: Color green.
+	legend polymetricWidth: 'ANY_J metric' height: 'DIR metric' box: 'ANY_C metric'.
 	legend onDemand: 'Legend'.
 	legend legendDo: [ :s | 
 		s
@@ -255,7 +253,7 @@ MModel >> visualizationMetrics [
 				dashArray: #(4));
 			scaleBy: 0.75;
 			padding: 15 ].
-	legend build."
+	legend build.
 	
 	^ c
 	
