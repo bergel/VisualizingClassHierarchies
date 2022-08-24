@@ -9,7 +9,7 @@ MMExample >> framework [
 	<script: 'self new framework inspect'>
 	
 	| m |
-	m := MModel new.
+	m := MProject new.
 	m importFromFilename: self path, 'framework.json'.
 	^ m
 ]
@@ -19,7 +19,7 @@ MMExample >> guava [
 	<script: 'self new guava inspect'>
 	
 	| m |
-	m := MModel new.
+	m := MProject new.
 	m importFromFilename: self path, 'guava.json'.
 	^ m
 ]
@@ -29,7 +29,7 @@ MMExample >> guice [
 	<script: 'self new guice inspect'>
 	
 	| m |
-	m := MModel new.
+	m := MProject new.
 	m importFromFilename: self path, 'guice.json'.
 	^ m
 ]
@@ -39,7 +39,7 @@ MMExample >> hadoop [
 	<script: 'self new hadoop inspect'>
 	
 	| m |
-	m := MModel new.
+	m := MProject new.
 	m importFromFilename: self path, 'hadoop.json'.
 	^ m
 ]
@@ -49,12 +49,12 @@ MMExample >> p2ToyProject [
 	<script: 'self new p2ToyProject inspect'>
 	
 	| m |
-	m := MModel new.
+	m := MProject new.
 	m importFromFilename: self path, 'p2_toy_project.json'.
 	^ m
 ]
 
 { #category : #examples }
 MMExample >> path [
-	^ '/Users/alexandrebergel/Dropbox/GitRepos/VisualizingClassHierarchies/data/'
+	^ '/Users/lse/Downloads/results/'
 ]
