@@ -7,6 +7,6 @@ Class {
 { #category : #tests }
 MModelTest >> testEmpty [
 	| m |
-	m := MModel new.
+	m := MProject new.
 	self assert: m numberOfClasses equals: 0
 ]

@@ -1,37 +1,48 @@
 Class {
-	#name : #MModel,
-	#superclass : #MObject,
+	#name : #MProject,
+	#superclass : #MEntity,
 	#instVars : [
-		'entities'
+		'entities',
+		'packages'
 	],
 	#category : #'Mattia-Visualization'
 }
 
 { #category : #initialization }
-MModel >> addClass: aClass [
+MProject >> addClass: aClass [
 	entities add: aClass
 ]
 
 { #category : #'as yet unclassified' }
-MModel >> buildRelation [
-	| d |
+MProject >> buildRelation [
+	| d aDictionary |
 	d := Dictionary new.
 	entities do: [ :entity |
 		d at: entity name put: entity ].
-	
+	aDictionary := Dictionary new.
 	entities do: [ :entity |
 		entity superclass: (d at: entity superclassName ifAbsent: [ nil ]).
 		entity incomingClassnames do: [ :cn |
 			(d includesKey: cn) ifTrue: [ entity incomingClasses add: (d at: cn) ] ]. 
 		entity outgoingClassnames do: [ :cn |
 			(d includesKey: cn) ifTrue: [ entity outgoingClasses add: (d at: cn) ] ]. 
+		aDictionary at: entity packageName
+			ifPresent: [ :pkg | pkg addClass: entity ]
+			ifAbsentPut: [ self newPackage: entity ]. 
 	].
+	
+	self packages: aDictionary values.
 	
 	 
 ]
 
+{ #category : #accessing }
+MProject >> children [
+	^ self packages
+]
+
 { #category : #'as yet unclassified' }
-MModel >> createClassFromJSON: json [
+MProject >> createClassFromJSON: json [
 	| cls m |
 	cls := MClass new
 					name: (json at: #name);
@@ -58,22 +69,28 @@ MModel >> createClassFromJSON: json [
 ]
 
 { #category : #'as yet unclassified' }
-MModel >> createEntityFromJSON: json [
+MProject >> createEntityFromJSON: json [
 	| type |
 	type := json at: #type.
 	(type = 'class') ifTrue: [ ^ self createClassFromJSON: json ].
 	^ nil
 ]
 
-{ #category : #'as yet unclassified' }
-MModel >> importFromFilename: aFilename [
+{ #category : #accessing }
+MProject >> entities [
+	^ entities
+]
+
+{ #category : #'importing-code' }
+MProject >> importFromFilename: aFilename [
 	"The provided filename should point to a json file"
-	| json allEntities e |
+	| json allEntities e reference |
 	
 	self assert: [ aFilename asFileReference exists ] description: 'Incorrect file name'.
 	self assert: [ aFilename asFileReference extension = 'json' ] description: 'Incorrect file name'.
-	
-	json := STONJSON fromString: aFilename asFileReference contents.
+	reference := aFilename asFileReference.
+	json := STONJSON fromString: reference contents.
+	self name: reference basename.
 	allEntities := json at: #entities.
 	allEntities do: [ :entityAsJSON |
 		e := self createEntityFromJSON: entityAsJSON.
@@ -85,34 +102,66 @@ MModel >> importFromFilename: aFilename [
 ]
 
 { #category : #initialization }
-MModel >> initialize [
+MProject >> initialize [
 	super initialize.
 	entities := OrderedCollection new
 ]
 
 { #category : #inspector }
-MModel >> inspectorMetrics [
+MProject >> inspectorMetrics [
 	<inspectorPresentationOrder: 90 title: 'Metrics'>
-	^ SpRoassal3InspectorPresenter new
-        canvas: self visualizationMetrics;
-        yourself
+	^ (MMVisualization on: self) asPresenter.
 ]
 
 { #category : #inspector }
-MModel >> inspectorVisualization [
+MProject >> inspectorMetricsContext: aContext [
+	aContext withoutEvaluator
+]
+
+{ #category : #inspector }
+MProject >> inspectorVisualization [
 	<inspectorPresentationOrder: 90 title: 'Visualization'>
 	^ SpRoassal3InspectorPresenter new
         canvas: self visualization;
         yourself
 ]
 
+{ #category : #inspector }
+MProject >> inspectorVisualizationContext: aContext [
+	aContext withoutEvaluator
+]
+
+{ #category : #building }
+MProject >> newPackage: aMClass [ 
+	
+	| packageName |
+	packageName := aMClass packageName.
+	^ packageName 
+		ifNil: [ nil ]
+		ifNotNil:  [ 
+			MPackage new
+				name: packageName;
+				addClass: aMClass;
+				yourself ].
+]
+
 { #category : #initialization }
-MModel >> numberOfClasses [
+MProject >> numberOfClasses [
 	^ entities size
 ]
 
+{ #category : #accessing }
+MProject >> packages [
+	^ packages
+]
+
+{ #category : #accessing }
+MProject >> packages: aCollection [ 
+	packages := aCollection
+]
+
 { #category : #visualization }
-MModel >> visualization [
+MProject >> visualization [
 
 	| legend c es visualEntities lb layoutBuilder |
 	c := RSCanvas new.
@@ -196,7 +245,7 @@ MModel >> visualization [
 ]
 
 { #category : #visualization }
-MModel >> visualizationMetrics [
+MProject >> visualizationMetrics [
 
 	| c es visualEntities lb layoutBuilder legend |
 	c := RSCanvas new.

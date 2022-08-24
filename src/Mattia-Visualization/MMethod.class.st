@@ -1,14 +1,18 @@
 Class {
 	#name : #MMethod,
-	#superclass : #MObject,
+	#superclass : #MEntity,
 	#instVars : [
-		'name',
 		'documentation',
 		'signature',
 		'sourceCode'
 	],
 	#category : #'Mattia-Visualization'
 }
+
+{ #category : #accessing }
+MMethod >> children [
+	^ #()
+]
 
 { #category : #accessing }
 MMethod >> documentation [
@@ -52,18 +56,6 @@ MMethod >> inspectorSourceCode [
 ]
 
 { #category : #accessing }
-MMethod >> name [
-
-	^ name
-]
-
-{ #category : #accessing }
-MMethod >> name: anObject [
-
-	name := anObject
-]
-
-{ #category : #accessing }
 MMethod >> signature [
 
 	^ signature
@@ -71,8 +63,8 @@ MMethod >> signature [
 
 { #category : #accessing }
 MMethod >> signature: anObject [
-
-	signature := anObject
+	signature := anObject.
+	name := signature
 ]
 
 { #category : #accessing }

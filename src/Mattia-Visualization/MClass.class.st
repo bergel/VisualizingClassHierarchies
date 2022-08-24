@@ -1,8 +1,7 @@
 Class {
 	#name : #MClass,
-	#superclass : #MObject,
+	#superclass : #MEntity,
 	#instVars : [
-		'name',
 		'superclassName',
 		'superclass',
 		'subclassesName',
@@ -55,6 +54,11 @@ MClass >> asShape [
 	RSHorizontalLineLayout new gapSize: -1; on: c.
 	compositeShape := c asArray asShapeFor: self.
 	^ compositeShape
+]
+
+{ #category : #accessing }
+MClass >> children [
+	^ self methods
 ]
 
 { #category : #accessing }
@@ -174,18 +178,6 @@ MClass >> metrics [
 	^ metrics
 ]
 
-{ #category : #accessing }
-MClass >> name [
-
-	^ name
-]
-
-{ #category : #accessing }
-MClass >> name: anObject [
-
-	name := anObject
-]
-
 { #category : #private }
 MClass >> numberOfMethods [
 	^ methods size
@@ -207,6 +199,14 @@ MClass >> outgoingClassnames [
 MClass >> outgoingClassnames: anObject [
 
 	outgoingClassnames := anObject
+]
+
+{ #category : #accessing }
+MClass >> packageName [
+	| lastIndex |
+	"'a.b.c' lastIndexOf: $. >>> 4"
+	lastIndex := name lastIndexOf: $..
+	^ lastIndex ifNil: [ nil ] ifNotNil: [ name copyFrom: 1 to: lastIndex -1 ]
 ]
 
 { #category : #printing }
